@@ -19,7 +19,23 @@ public class CreateUserCommandHandler
         _userManager = userManager;
     }
 
-    public Task<Result> Handle(CreateUserCommand request,
+    public async Task<Result> Handle(CreateUserCommand request,
         CancellationToken cancellationToken)
-        => throw new NotImplementedException();
+    {
+        IdentityUser newUser = new()
+        {
+            UserName = request.Name,
+            Email = request.Email,
+            EmailConfirmed = true
+        };
+
+        var result = await _userManager.CreateAsync(newUser);
+
+        if (result.Succeeded)
+            await _userManager.SetLockoutEnabledAsync(newUser, false);
+
+        return result.Succeeded ?
+            Result.Success() : 
+            Result.Error(result.Errors.Select(x => x.Description).ToArray());
+    }
 }

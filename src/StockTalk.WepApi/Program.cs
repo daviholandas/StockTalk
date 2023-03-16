@@ -1,4 +1,5 @@
 using StockTalk.Application.IoC;
+using StockTalk.Infra.Auth;
 using StockTalk.Infra.Data.IoC;
 using StockTalk.WepApi.Endpoints;
 
@@ -9,7 +10,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services
     .AddApplicationIoC()
-    .AddInfraDataIoC(builder.Configuration);
+    .AddInfraDataIoC(builder.Configuration)
+    .AddAuthIoC(builder.Configuration);
 
 var app = builder.Build();
 
