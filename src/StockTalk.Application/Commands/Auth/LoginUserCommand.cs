@@ -3,7 +3,7 @@ using MediatR;
 
 namespace StockTalk.Application.Commands.Auth;
 
-public record struct CreateUserCommand(
-    string Email,
+public record struct LoginUserCommand(
+    string Username,
     string Password) :
-    IRequest<Result>;
+    IRequest<Result<string>>;

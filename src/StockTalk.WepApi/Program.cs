@@ -1,13 +1,47 @@
+using Microsoft.OpenApi.Models;
 using StockTalk.Application.IoC;
-using StockTalk.Infra.Auth;
 using StockTalk.Infra.Auth.IoC;
 using StockTalk.Infra.Data.IoC;
 using StockTalk.WepApi.Endpoints;
+using StockTalk.WepApi.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("Bearer", new ()
+    {
+        Description = """
+            JWT Authorization header using the Bearer scheme. 
+            Enter 'Bearer' [space] and then your token in the text input below.
+        """,
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    options.AddSecurityRequirement(new ()
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                },
+                Scheme = "oauth2",
+                Name = "Bearer",
+                In = ParameterLocation.Header,
+            },
+            new List<string>()
+        }
+    });
+});
+
+builder.Services.AddSignalR();
 
 builder.Services
     .AddApplicationIoC()
@@ -25,8 +59,23 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseCors(
+    corsPolicy => corsPolicy
+    .SetIsOriginAllowed(orign => true)
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials());
+
 app
     .AddChatEndpoints()
     .AddAuthEndpoints();
+
+app.MapHub<ChatHub>("/chats")
+    .RequireAuthorization();
+app.MapHub<BotHub>("/bot")
+    .RequireAuthorization();
 
 app.Run();

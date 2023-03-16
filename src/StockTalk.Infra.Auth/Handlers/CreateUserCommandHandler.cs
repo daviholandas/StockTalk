@@ -24,12 +24,12 @@ public class CreateUserCommandHandler
     {
         IdentityUser newUser = new()
         {
-            UserName = request.Name,
+            UserName = request.Email,
             Email = request.Email,
             EmailConfirmed = true
         };
 
-        var result = await _userManager.CreateAsync(newUser);
+        var result = await _userManager.CreateAsync(newUser, request.Password);
 
         if (result.Succeeded)
             await _userManager.SetLockoutEnabledAsync(newUser, false);

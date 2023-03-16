@@ -16,7 +16,7 @@ public static class AuthIoC
     {
         var jwtAppSettingOptions = configuration.GetSection(nameof(JwtOptions));
         var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration.GetSection("JwtOptions:SecurityKey").Value ?? string.Empty));
-
+        
         servicesCollection
             .AddDbContext<AuthDbContext>(
             options =>
@@ -55,16 +55,12 @@ public static class AuthIoC
         {
             ValidateIssuer = true,
             ValidIssuer = configuration.GetSection("JwtOptions:Issuer").Value,
-
             ValidateAudience = true,
             ValidAudience = configuration.GetSection("JwtOptions:Audience").Value,
-
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = securityKey,
-
             RequireExpirationTime = true,
             ValidateLifetime = true,
-
             ClockSkew = TimeSpan.Zero
         };
 

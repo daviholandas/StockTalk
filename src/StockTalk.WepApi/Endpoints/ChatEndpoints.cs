@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using StockTalk.Application.Commands.ChantRoom;
-using StockTalk.Infra.Data.Queries.ChatRoom;
 
 namespace StockTalk.WepApi.Endpoints;
 
@@ -23,12 +22,8 @@ public static class ChatEndpoints
                     _ => Results.BadRequest()
                 });
 
-        group.MapGet("", async (IMediator mediator)
-            => await mediator.Send(new GetAllChatsQuery())
-                switch
-            {
-                var result => Results.Ok(result.Value),
-            });
+        group.MapGet("",  ()
+            => Results.Ok(new {ChatRoom = "Stocks"}));
             
         return routeBuilder;
     }
