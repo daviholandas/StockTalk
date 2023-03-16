@@ -1,5 +1,6 @@
 using StockTalk.Application.IoC;
 using StockTalk.Infra.Auth;
+using StockTalk.Infra.Auth.IoC;
 using StockTalk.Infra.Data.IoC;
 using StockTalk.WepApi.Endpoints;
 
@@ -11,7 +12,7 @@ builder.Services.AddSwaggerGen();
 builder.Services
     .AddApplicationIoC()
     .AddInfraDataIoC(builder.Configuration)
-    .AddAuthIoC(builder.Configuration);
+    .AddInfraAuthIoC(builder.Configuration);
 
 var app = builder.Build();
 
@@ -24,6 +25,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.AddChatEndpoints();
+app
+    .AddChatEndpoints()
+    .AddAuthEndpoints();
 
 app.Run();

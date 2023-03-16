@@ -1,17 +1,17 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using StockTalk.Infra.Auth.Data;
-using System.Text;
 
-namespace StockTalk.Infra.Auth;
+namespace StockTalk.Infra.Auth.IoC;
 
 public static class AuthIoC
 {
-    public static IServiceCollection AddAuthIoC(this IServiceCollection servicesCollection,
+    public static IServiceCollection AddInfraAuthIoC(this IServiceCollection servicesCollection,
         IConfiguration configuration)
     {
         var jwtAppSettingOptions = configuration.GetSection(nameof(JwtOptions));

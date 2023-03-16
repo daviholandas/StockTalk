@@ -11,6 +11,7 @@ public static class ChatEndpoints
         var group = routeBuilder
             .MapGroup("chat")
             .WithTags("Chat")
+            .RequireAuthorization()
             .WithOpenApi();
 
         group.MapPost("", async (CreateChatRoomCommand commnand,
@@ -18,7 +19,7 @@ public static class ChatEndpoints
             => await mediator.Send(commnand)
                 switch
                 {
-                    { IsSuccess: true } result => Results.Created($"{result.Value}",result.Value),
+                    { IsSuccess: true } result => Results.Ok(),
                     _ => Results.BadRequest()
                 });
 
