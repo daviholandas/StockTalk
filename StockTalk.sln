@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockTalk.Application", "src\StockTalk.Application\StockTalk.Application.csproj", "{9745239D-A8D4-487A-A06A-5252813D4B25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockTalk.Infra.Data", "src\StockTalk.Infra.Data\StockTalk.Infra.Data.csproj", "{8B6FD6FA-4D4B-4F98-929C-A85FB1A8CDF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockTalk.WepApi", "src\StockTalk.WepApi\StockTalk.WepApi.csproj", "{2462785A-0EDC-4560-8654-E236BE7E51BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockTalk.Infra.Auth", "src\StockTalk.Infra.Auth\StockTalk.Infra.Auth.csproj", "{68A8D86A-DF73-457D-9753-CEEF0593B1CF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9745239D-A8D4-487A-A06A-5252813D4B25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9745239D-A8D4-487A-A06A-5252813D4B25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9745239D-A8D4-487A-A06A-5252813D4B25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9745239D-A8D4-487A-A06A-5252813D4B25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B6FD6FA-4D4B-4F98-929C-A85FB1A8CDF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B6FD6FA-4D4B-4F98-929C-A85FB1A8CDF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B6FD6FA-4D4B-4F98-929C-A85FB1A8CDF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B6FD6FA-4D4B-4F98-929C-A85FB1A8CDF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2462785A-0EDC-4560-8654-E236BE7E51BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2462785A-0EDC-4560-8654-E236BE7E51BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2462785A-0EDC-4560-8654-E236BE7E51BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2462785A-0EDC-4560-8654-E236BE7E51BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68A8D86A-DF73-457D-9753-CEEF0593B1CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68A8D86A-DF73-457D-9753-CEEF0593B1CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68A8D86A-DF73-457D-9753-CEEF0593B1CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68A8D86A-DF73-457D-9753-CEEF0593B1CF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
