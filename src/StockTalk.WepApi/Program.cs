@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.OpenApi.Models;
 using StockTalk.Application.IoC;
 using StockTalk.Infra.Auth.IoC;
@@ -41,12 +42,26 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-builder.Services.AddSignalR();
+builder.Services.AddSignalR(x => x.EnableDetailedErrors = true);
 
 builder.Services
     .AddApplicationIoC()
     .AddInfraDataIoC(builder.Configuration)
     .AddInfraAuthIoC(builder.Configuration);
+
+builder.Services
+    .AddCors(coreOptions => 
+    coreOptions
+        .AddDefaultPolicy(policy =>
+            policy
+                .WithOrigins("http://localhost:4200")
+                .AllowAnyHeader()
+                .AllowCredentials()));
+
+builder.Services
+    .AddMemoryCache();
+
+
 
 var app = builder.Build();
 
@@ -59,15 +74,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseCors(
-    corsPolicy => corsPolicy
-    .SetIsOriginAllowed(orign => true)
-    .AllowAnyMethod()
-    .AllowAnyHeader()
-    .AllowCredentials());
 
 app
     .AddChatEndpoints()
@@ -75,6 +86,7 @@ app
 
 app.MapHub<ChatHub>("/chats")
     .RequireAuthorization();
+
 app.MapHub<BotHub>("/bot")
     .RequireAuthorization();
 
