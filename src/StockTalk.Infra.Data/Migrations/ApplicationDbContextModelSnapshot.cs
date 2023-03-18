@@ -22,21 +22,6 @@ namespace StockTalk.Infra.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ChatRoomUser", b =>
-                {
-                    b.Property<Guid>("ChatRoomId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ParticipantsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ChatRoomId", "ParticipantsId");
-
-                    b.HasIndex("ParticipantsId");
-
-                    b.ToTable("ChatRoomUser");
-                });
-
             modelBuilder.Entity("StockTalk.Application.Aggregates.ChatAggregate.ChatRoom", b =>
                 {
                     b.Property<Guid>("Id")
@@ -79,50 +64,6 @@ namespace StockTalk.Infra.Data.Migrations
                                     .HasPeriodEnd("PeriodEnd")
                                     .HasColumnName("PeriodEnd");
                             }));
-                });
-
-            modelBuilder.Entity("StockTalk.Application.Aggregates.UserAggregate.User", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreateAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
-
-                    b.Property<string>("NickName")
-                        .IsRequired()
-                        .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Participants", (string)null);
-                });
-
-            modelBuilder.Entity("ChatRoomUser", b =>
-                {
-                    b.HasOne("StockTalk.Application.Aggregates.ChatAggregate.ChatRoom", null)
-                        .WithMany()
-                        .HasForeignKey("ChatRoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StockTalk.Application.Aggregates.UserAggregate.User", null)
-                        .WithMany()
-                        .HasForeignKey("ParticipantsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("StockTalk.Application.Aggregates.ChatAggregate.ChatRoom", b =>

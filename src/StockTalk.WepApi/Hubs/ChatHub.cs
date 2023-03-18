@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Caching.Memory;
+using StockTalk.Application.Aggregates.ChatAggregate;
 
 namespace StockTalk.WepApi.Hubs;
 
-public class ChatHub : Hub
+public class ChatHub : Hub<IChatHub>
 {
     private readonly IMemoryCache _memoryCache;
 
@@ -13,17 +13,11 @@ public class ChatHub : Hub
         _memoryCache = memoryCache;
     }
 
-    public async ValueTask CreateChatRoom(string id)
+    public async ValueTask CreateChatRoom(string groupName)
+        => await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+
+    public async ValueTask SendMessages(string groupName, Message message )
     {
-       await Groups.AddToGroupAsync(Context.ConnectionId, id);
-
-       _memoryCache.Set(id, id);
-    }
-
-    public async ValueTask GetAllRooms()
-    {
-        var names = new[] { "Stocks", "Cars", "House", "dasda" };
-
-        await Clients.All.SendAsync("getAllGroupsListener", names);
+        await Clients.Group(groupName).ReceiveMessage(message);
     }
 }

@@ -6,7 +6,7 @@ using StockTalk.Application.Repositories;
 namespace StockTalk.Infra.Data.Queries.ChatRoom;
 
 public class ChatRoomQueriesHandlers :
-    IRequestHandler<GetAllChatsQuery, Result<IEnumerable<Application.Aggregates.ChatAggregate.ChatRoom>>>
+    IRequestHandler<GetAllChatsQuery, Result<IEnumerable<GetAllChatRoomQueryResult>>>
 {
     private readonly IApplicationDbContext _applicationDbContext;
 
@@ -15,8 +15,15 @@ public class ChatRoomQueriesHandlers :
         _applicationDbContext = applicationDbContext;
     }
 
-    public async Task<Result<IEnumerable<Application.Aggregates.ChatAggregate.ChatRoom>>> Handle(GetAllChatsQuery query,
+    public async Task<Result<IEnumerable<GetAllChatRoomQueryResult>>> Handle(GetAllChatsQuery query,
         CancellationToken cancellationToken)
-        => Result<IEnumerable<Application.Aggregates.ChatAggregate.ChatRoom>>
-            .Success(await _applicationDbContext.ChatRooms.ToListAsync(cancellationToken));
+    {
+        var chats = await _applicationDbContext
+            .ChatRooms
+            .Select(x => new GetAllChatRoomQueryResult(x.Id, x.Name, x.Status.ToString()))
+            .ToListAsync(cancellationToken);
+
+        return Result<IEnumerable<GetAllChatRoomQueryResult>>
+            .Success(chats ?? Enumerable.Empty<GetAllChatRoomQueryResult>());
+    }
 }
