@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.OpenApi.Models;
 using StockTalk.Application.IoC;
 using StockTalk.Infra.Auth.IoC;

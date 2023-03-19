@@ -20,6 +20,7 @@ public class ChatRoomQueriesHandlers :
     {
         var chats = await _applicationDbContext
             .ChatRooms
+            .AsNoTracking()
             .Select(x => new GetAllChatRoomQueryResult(x.Id, x.Name, x.Status.ToString()))
             .ToListAsync(cancellationToken);
 
