@@ -26,6 +26,7 @@
       <ProjectReference Include="..\StockTalk.Application\StockTalk.Application.csproj" />
       <ProjectReference Include="..\StockTalk.Infra.Auth\StockTalk.Infra.Auth.csproj" />
       <ProjectReference Include="..\StockTalk.Infra.Data\StockTalk.Infra.Data.csproj" />
+      <ProjectReference Include="..\StockTalk.Infra.MessageBus\StockTalk.Infra.MessageBus.csproj" />
     </ItemGroup>
 
 </Project>

@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockTalk.WepApi", "src\Sto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockTalk.Infra.Auth", "src\StockTalk.Infra.Auth\StockTalk.Infra.Auth.csproj", "{68A8D86A-DF73-457D-9753-CEEF0593B1CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockTalk.StockWorker", "src\StockTalk.StockWorker\StockTalk.StockWorker.csproj", "{82DF7277-24F8-4D0E-BD90-34F37B03352B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockTalk.Infra.MessageBus", "src\StockTalk.Infra.MessageBus\StockTalk.Infra.MessageBus.csproj", "{E1C46915-3E57-4345-8818-CAFC8AC6F588}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,13 @@ Global
 		{68A8D86A-DF73-457D-9753-CEEF0593B1CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68A8D86A-DF73-457D-9753-CEEF0593B1CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68A8D86A-DF73-457D-9753-CEEF0593B1CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82DF7277-24F8-4D0E-BD90-34F37B03352B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82DF7277-24F8-4D0E-BD90-34F37B03352B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82DF7277-24F8-4D0E-BD90-34F37B03352B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82DF7277-24F8-4D0E-BD90-34F37B03352B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1C46915-3E57-4345-8818-CAFC8AC6F588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1C46915-3E57-4345-8818-CAFC8AC6F588}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1C46915-3E57-4345-8818-CAFC8AC6F588}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1C46915-3E57-4345-8818-CAFC8AC6F588}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,5 +1,7 @@
 ﻿using MediatR;
 using StockTalk.Application.Commands.ChantRoom;
+using StockTalk.Application.Models;
+using StockTalk.Application.Services;
 using StockTalk.Infra.Data.Queries.ChatRoom;
 
 namespace StockTalk.WepApi.Endpoints;
@@ -31,6 +33,12 @@ public static class ChatEndpoints
             })
             .Produces<GetAllChatRoomQueryResult>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest);
+
+        group.MapPost("message", async (MessageStock message,
+                IMessageBusService service) =>
+        {
+            await service.PublishMessage(message);
+        });
             
         return routeBuilder;
     }

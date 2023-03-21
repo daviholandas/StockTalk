@@ -2,6 +2,7 @@ using Microsoft.OpenApi.Models;
 using StockTalk.Application.IoC;
 using StockTalk.Infra.Auth.IoC;
 using StockTalk.Infra.Data.IoC;
+using StockTalk.Infra.MessageBus.IoC;
 using StockTalk.WepApi.Endpoints;
 using StockTalk.WepApi.Hubs;
 
@@ -47,6 +48,9 @@ builder.Services
     .AddApplicationIoC()
     .AddInfraDataIoC(builder.Configuration)
     .AddInfraAuthIoC(builder.Configuration);
+
+builder.Services
+    .AddRabbitMqBroker(builder.Configuration);
 
 builder.Services
     .AddCors(coreOptions => 
