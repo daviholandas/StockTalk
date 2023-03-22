@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using StockTalk.Infra.EventBus.Interfaces;
 using StockTalk.Infra.MessageBus.Models;
 
 namespace StockTalk.Infra.MessageBus;
@@ -33,7 +34,7 @@ public class ConsumerMessageBus<T> : IConsumeMessageBus<T>
         return ValueTask.CompletedTask;
     }
 
-    public ValueTask Handler(Action<T> actionToCall)
+    public ValueTask HandlerMessages(Action<T> actionToCall)
     {
         _eventingBasicConsumer.Received += async (sender,
             basic) =>

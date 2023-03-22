@@ -1,6 +1,6 @@
 using RabbitMQ.Client;
 
-namespace StockTalk.Infra.MessageBus;
+namespace StockTalk.Infra.EventBus.Interfaces;
 
 public interface IRabbitMqStartup
 {

@@ -1,7 +1,5 @@
-using Ardalis.Result;
 using StockTalk.Application.Models;
-using StockTalk.Infra.MessageBus;
-using StockTalk.StockWorker.Models;
+using StockTalk.Infra.EventBus.Interfaces;
 using StockTalk.StockWorker.Services;
 
 namespace StockTalk.StockWorker;
@@ -32,9 +30,9 @@ public class Worker : BackgroundService
     {
 
         await _consumeMessageBus
-            .Handler(async (message) =>
+            .HandlerMessages(async (message) =>
             {
-                var result = await _stockService.GetStockBySymbol(message?.Body);
+                var result = await _stockService.GetStockBySymbol(message?.Symbol);
                 _logger.LogInformation($"{result.Value.Symbol.ToUpper()} quote is ${result.Value.Value} per share");
                 
             });

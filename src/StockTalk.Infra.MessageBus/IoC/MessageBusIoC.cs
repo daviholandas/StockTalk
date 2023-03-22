@@ -2,6 +2,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StockTalk.Application.Models;
 using StockTalk.Application.Services;
+using StockTalk.Infra.EventBus.Interfaces;
 using StockTalk.Infra.EventBus.Services;
 using StockTalk.Infra.MessageBus.Models;
 
@@ -15,8 +16,8 @@ public static class MessageBrokerIoC
         serviceCollection
             .Configure<MessageBusSettings>(configuration.GetSection(nameof(MessageBusSettings)));
         
-        serviceCollection.AddSingleton<IMessageBusService, MessageBusService>();
         serviceCollection.AddSingleton<IConsumeMessageBus<MessageStock>, ConsumerMessageBus<MessageStock>>();
+        serviceCollection.AddSingleton<IPublishMessageBus<MessageStock>, PublishMessageBus<MessageStock>>();
         
         serviceCollection.AddSingleton<IRabbitMqStartup, RabbitMqStartup>();
 

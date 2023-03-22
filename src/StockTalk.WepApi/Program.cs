@@ -90,7 +90,4 @@ app
 app.MapHub<ChatHub>("/chats")
     .RequireAuthorization();
 
-app.MapHub<BotHub>("/bot")
-    .RequireAuthorization();
-
 app.Run();

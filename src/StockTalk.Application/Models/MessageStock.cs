@@ -1,4 +1,4 @@
 namespace StockTalk.Application.Models;
 
-public record MessageStock(string Body, 
+public record MessageStock(string Symbol, 
     string SentTo);

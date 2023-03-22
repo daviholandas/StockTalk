@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
+using StockTalk.Infra.EventBus.Interfaces;
 using StockTalk.Infra.MessageBus.Models;
 
 namespace StockTalk.Infra.MessageBus;
