@@ -1,6 +1,6 @@
 <h1>StockTalk</h1>
 
-- Installation:
+- *Installation*:
 
 1. First of all, you need to have the dotnet sdk installed and docker.
 2. Open the terminal or bash in the root of folder project and run the command: `dotnet tool restore`, this command will install tools necessary;
@@ -9,9 +9,11 @@
 
 The frontend application, has two options: Clone the project and on the root folder run: `npm i` and `ng s`(this option is more speedy.), a another it's, in the root path have the cake file run the command: `dotnet tool restore`, after `.\build.ps1 --Target=WebApp`(build.sh --Target=Webapp);
 
-- Usage:
+- *Usage*:
 1. The first page it's the login page, if to first time in the application, will be necessary signup, have a button to this.;
 2. After login, the home page it's where you can create the chatsrooms and list the existed; Have a button where you can create it;
 3. In the chat room, to call the bot press the `/` and will appear a window, enter the symbol of the stock you want to search and in the chat will appear a message with result.
 
 The front repository: [StockTalk Webapp](https://github.com/daviholandas/stocktalk.app.git)
+
+![img|320x271](./imagens/image3.png)
