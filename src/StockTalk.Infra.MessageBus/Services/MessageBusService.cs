@@ -1,17 +1,26 @@
+using System.Text;
+using System.Text.Json;
+using RabbitMQ.Client;
 using StockTalk.Application.Models;
 using StockTalk.Application.Services;
+using StockTalk.Infra.MessageBus;
 
 namespace StockTalk.Infra.EventBus.Services;
 
 public class MessageBusService : IMessageBusService
 {
-    private IMessageChannelBus _messageChannelBus;
+    private readonly IRabbitMqStartup _rabbitMqStartup;
 
-    public MessageBusService(IMessageChannelBus messageChannelBus)
+    public MessageBusService(IRabbitMqStartup rabbitMqStartup)
     {
-        _messageChannelBus = messageChannelBus;
+        _rabbitMqStartup = rabbitMqStartup;
     }
 
-    public async ValueTask PublishMessage(MessageStock message)
-        => await _messageChannelBus.PublishMessageAsync(message);
+    public void PublishMessage(MessageStock message)
+    {
+        var stringfiedMessage =  JsonSerializer.Serialize(message);
+        _rabbitMqStartup.Channel.BasicPublish(exchange: "",
+            routingKey:"Stocks" ,
+            body: Encoding.UTF8.GetBytes(stringfiedMessage));
+    }
 }

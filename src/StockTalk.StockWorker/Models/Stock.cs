@@ -2,5 +2,11 @@ using CsvHelper.Configuration.Attributes;
 
 namespace StockTalk.StockWorker.Models;
 
-public record Stock([Name("Symbol")]string Symbol,
-[Name("Close")]string Value);
+public class Stock
+{
+    [Name("Symbol")]
+    public string Symbol { get; set; }
+    
+    [Name("Close")]
+    public string Value { get; set; }
+}

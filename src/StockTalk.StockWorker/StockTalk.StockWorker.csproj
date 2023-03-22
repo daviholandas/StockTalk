@@ -4,14 +4,12 @@
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <UserSecretsId>dotnet-StockTalk.StockWorker-66E148E7-3D24-461F-8AE3-5483097E49F5</UserSecretsId>
+        <UserSecretsId>dotnet-StockTalk.StockWorker-AFC285A6-F2D4-4021-BF76-C447A7009EEE</UserSecretsId>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Ardalis.Result.AspNetCore" Version="7.0.0" />
         <PackageReference Include="CsvHelper" Version="30.0.1" />
-        <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
     </ItemGroup>
 
@@ -19,5 +17,10 @@
       <Content Include="..\..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\StockTalk.Application\StockTalk.Application.csproj" />
+      <ProjectReference Include="..\StockTalk.Infra.MessageBus\StockTalk.Infra.MessageBus.csproj" />
     </ItemGroup>
 </Project>

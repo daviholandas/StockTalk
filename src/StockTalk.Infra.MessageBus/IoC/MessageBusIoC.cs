@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StockTalk.Application.Models;
 using StockTalk.Application.Services;
 using StockTalk.Infra.EventBus.Services;
 using StockTalk.Infra.MessageBus.Models;
@@ -13,11 +14,12 @@ public static class MessageBrokerIoC
     {
         serviceCollection
             .Configure<MessageBusSettings>(configuration.GetSection(nameof(MessageBusSettings)));
-
-        serviceCollection.AddSingleton<IMessageChannelBus, MessageChannelBus>();
+        
         serviceCollection.AddSingleton<IMessageBusService, MessageBusService>();
+        serviceCollection.AddSingleton<IConsumeMessageBus<MessageStock>, ConsumerMessageBus<MessageStock>>();
+        
+        serviceCollection.AddSingleton<IRabbitMqStartup, RabbitMqStartup>();
 
-        serviceCollection.AddHostedService<RabbitMqStartup>();
         return serviceCollection;
     }
 }

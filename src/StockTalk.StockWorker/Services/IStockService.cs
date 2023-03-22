@@ -14,14 +14,14 @@ public interface IStockService
 public class StockService : IStockService
 {
     private readonly HttpClient _httpClient;
-    private readonly ApplicationSettings _applicationSettings;
+    private readonly WorkerSettings _workerSettings;
 
     public StockService(IHttpClientFactory httpClientFactory,
-        IOptions<ApplicationSettings> applicationSettings)
+        IOptions<WorkerSettings> workerSettings)
     {
-        _applicationSettings = applicationSettings.Value;
+        _workerSettings = workerSettings.Value;
         _httpClient = httpClientFactory
-            .CreateClient(_applicationSettings.ClientSettings.Name);
+            .CreateClient(_workerSettings.ClientSettings.Name);
     }
 
     public async ValueTask<Result<Stock>> GetStockBySymbol(string symbol)
@@ -35,6 +35,7 @@ public class StockService : IStockService
             using var reader = new StreamReader(stream);
         
             var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+            await csv.ReadAsync();
 
             return Result<Stock>.Success(csv.GetRecord<Stock>());
         }

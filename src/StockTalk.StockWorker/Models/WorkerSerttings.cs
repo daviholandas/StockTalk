@@ -1,6 +1,6 @@
 namespace StockTalk.StockWorker.Models;
 
-public class ApplicationSettings
+public class WorkerSettings
 {
     public ClientSettings ClientSettings { get; set; }
 }

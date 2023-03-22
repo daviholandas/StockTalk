@@ -34,10 +34,10 @@ public static class ChatEndpoints
             .Produces<GetAllChatRoomQueryResult>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest);
 
-        group.MapPost("message", async (MessageStock message,
+        group.MapPost("message", (MessageStock message,
                 IMessageBusService service) =>
         {
-            await service.PublishMessage(message);
+             service.PublishMessage(message);
         });
             
         return routeBuilder;
