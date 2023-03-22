@@ -90,8 +90,7 @@ app
     .AddChatEndpoints()
     .AddAuthEndpoints();
 
-app.MapHub<ChatHub>("/chats")
-    .RequireAuthorization();
+app.MapHub<ChatHub>("/chats");
 
 app.Run();
 

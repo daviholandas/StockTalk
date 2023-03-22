@@ -32,7 +32,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
     ports:
-      - "7149:7149"
+      - "7149:80"
   
   worker:
     container_name: stocktalkworker

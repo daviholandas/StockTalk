@@ -26,4 +26,10 @@
       <ProjectReference Include="..\StockTalk.Infra.MessageBus\StockTalk.Infra.MessageBus.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="..\..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
+    </ItemGroup>
+
 </Project>
