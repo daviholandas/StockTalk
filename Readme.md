@@ -17,8 +17,8 @@ The frontend application, has two options: Clone the project and on the root fol
 The front repository: [StockTalk Webapp](https://github.com/daviholandas/stocktalk.app.git)
 
 ## ChatRoom
-![img|100x100](./imagens/image4.png)
+![img|100x100](./images/image4.png)
 ## Calling the bot
-![img|100x100](./imagens/image5.png)
+![img|100x100](./images/image5.png)
 ## Bot Interacting
-![img|100x100](./imagens/image6.png)
+![img|100x100](./images/image6.png)
