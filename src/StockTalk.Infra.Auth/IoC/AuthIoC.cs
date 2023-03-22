@@ -1,12 +1,11 @@
 ﻿using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
-using StockTalk.Infra.Auth.Data;
+using StockTalk.Infra.Data;
 
 namespace StockTalk.Infra.Auth.IoC;
 
@@ -18,19 +17,11 @@ public static class AuthIoC
         var jwtAppSettingOptions = configuration.GetSection(nameof(JwtOptions));
         var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration.GetSection("JwtOptions:SecurityKey").Value ?? string.Empty));
         
-        servicesCollection
-            .AddDbContext<AuthDbContext>(
-            options =>
-            {
-                options.UseSqlServer(configuration.GetConnectionString("ApplicationDb"),
-                    config 
-                        => config.EnableRetryOnFailure(3));
-            });
-
+        
         servicesCollection
             .AddDefaultIdentity<IdentityUser>()
             .AddRoles<IdentityRole>()
-            .AddEntityFrameworkStores<AuthDbContext>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
         

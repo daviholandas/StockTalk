@@ -9,15 +9,18 @@ public class Worker : BackgroundService
     private readonly ILogger<Worker> _logger;
     private readonly IConsumeMessageBus<MessageStock> _consumeMessageBus;
     private readonly IStockService _stockService;
+    private readonly IPublishMessageBus<BotMessage> _publishMessageBus;
 
 
     public Worker(ILogger<Worker> logger,
         IConsumeMessageBus<MessageStock> consumeMessageBus,
-        IStockService stockService)
+        IStockService stockService,
+        IPublishMessageBus<BotMessage> publishMessageBus)
     {
         _logger = logger;
         _consumeMessageBus = consumeMessageBus;
         _stockService = stockService;
+        _publishMessageBus = publishMessageBus;
     }
 
     public async override Task StartAsync(CancellationToken cancellationToken)
@@ -28,15 +31,19 @@ public class Worker : BackgroundService
 
     async protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-
         await _consumeMessageBus
             .HandlerMessages(async (message) =>
             {
                 var result = await _stockService.GetStockBySymbol(message?.Symbol);
-                _logger.LogInformation($"{result.Value.Symbol.ToUpper()} quote is ${result.Value.Value} per share");
                 
-            });
+                if(!result.IsSuccess)
+                    _publishMessageBus.PublishMessage(new("Can't found the stock", message.SentTo),
+                        "stocktalk.*");
+                _publishMessageBus.PublishMessage(new($"{result.Value.Symbol.ToUpper()} quote is ${result.Value.Value} per share.",
+                        message.SentTo),
+                    "stocktalk.*");
 
-        await Task.CompletedTask;
+            });
+        
     }
 }

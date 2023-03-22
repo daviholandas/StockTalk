@@ -15,7 +15,7 @@ public class RabbitMqStartup : IRabbitMqStartup, IDisposable
 
     public IModel Channel
         => _channel;
-
+    
     public RabbitMqStartup(ILogger<RabbitMqStartup> logger,
         IOptions<MessageBusSettings> messageBusSettings)
     {
@@ -32,8 +32,13 @@ public class RabbitMqStartup : IRabbitMqStartup, IDisposable
         
             _connection = connectionFactory.CreateConnection();
             _channel = _connection.CreateModel();
+            _channel.ExchangeDeclare(_messageBusSettings.ExchangeName,
+                ExchangeType.Topic, true, false,null);
             _channel.QueueDeclare(_messageBusSettings.QueueName,
                 true, false, false);
+            _channel.QueueBind(_messageBusSettings.QueueName, 
+                _messageBusSettings.ExchangeName,
+                _messageBusSettings.RouteKey);
             
             _logger.LogInformation("Success to connect a RabbitMq Broker....");
         }
@@ -45,7 +50,7 @@ public class RabbitMqStartup : IRabbitMqStartup, IDisposable
             throw;
         }
     }
-
+    
     public void Dispose()
     {
         _channel.Close();

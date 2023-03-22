@@ -33,13 +33,7 @@ public static class ChatEndpoints
             })
             .Produces<GetAllChatRoomQueryResult>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest);
-
-        group.MapPost("message", (MessageStock message,
-                IMessageBusService service) =>
-        {
-             service.PublishMessage(message);
-        });
-            
+        
         return routeBuilder;
     }
 }

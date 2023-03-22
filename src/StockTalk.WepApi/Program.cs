@@ -1,8 +1,10 @@
 using Microsoft.OpenApi.Models;
 using StockTalk.Application.IoC;
 using StockTalk.Infra.Auth.IoC;
+using StockTalk.Infra.Data;
 using StockTalk.Infra.Data.IoC;
 using StockTalk.Infra.MessageBus.IoC;
+using StockTalk.WepApi;
 using StockTalk.WepApi.Endpoints;
 using StockTalk.WepApi.Hubs;
 
@@ -53,6 +55,9 @@ builder.Services
     .AddRabbitMqBroker(builder.Configuration);
 
 builder.Services
+    .AddHostedService<MessageBusConsumer>();
+
+builder.Services
     .AddCors(coreOptions => 
     coreOptions
         .AddDefaultPolicy(policy =>
@@ -69,12 +74,10 @@ builder.Services
 var app = builder.Build();
 
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+await EnsureDatabase(app);
 
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
 app.UseCors();
@@ -91,3 +94,11 @@ app.MapHub<ChatHub>("/chats")
     .RequireAuthorization();
 
 app.Run();
+
+async ValueTask EnsureDatabase(WebApplication app)
+{
+    using var scope = app.Services.CreateScope();
+    var applicationContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+    await applicationContext.Database.EnsureCreatedAsync();
+}

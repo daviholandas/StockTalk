@@ -19,11 +19,11 @@ public class PublishMessageBus<T> : IPublishMessageBus<T>
         _messageBusSettings = messageBusSettings.Value;
     }
 
-    public void PublishMessage(T message)
+    public void PublishMessage(T message, string routeKey = null)
     {
         var stringfiedMessage =  JsonSerializer.Serialize(message);
-        _rabbitMqStartup.Channel.BasicPublish(exchange: "",
-            routingKey:_messageBusSettings.QueueName,
+        _rabbitMqStartup.Channel.BasicPublish(exchange: _messageBusSettings.ExchangeName,
+            routingKey: routeKey ?? _messageBusSettings.RouteKey,
             body: Encoding.UTF8.GetBytes(stringfiedMessage)); 
     }
 }

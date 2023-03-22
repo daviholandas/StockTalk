@@ -18,6 +18,8 @@ public static class MessageBrokerIoC
         
         serviceCollection.AddSingleton<IConsumeMessageBus<MessageStock>, ConsumerMessageBus<MessageStock>>();
         serviceCollection.AddSingleton<IPublishMessageBus<MessageStock>, PublishMessageBus<MessageStock>>();
+        serviceCollection.AddSingleton<IConsumeMessageBus<BotMessage>, ConsumerMessageBus<BotMessage>>();
+        serviceCollection.AddSingleton<IPublishMessageBus<BotMessage>, PublishMessageBus<BotMessage>>();
         
         serviceCollection.AddSingleton<IRabbitMqStartup, RabbitMqStartup>();
 

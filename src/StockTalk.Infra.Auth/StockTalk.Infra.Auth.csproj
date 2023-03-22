@@ -15,6 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\StockTalk.Application\StockTalk.Application.csproj" />
+      <ProjectReference Include="..\StockTalk.Infra.Data\StockTalk.Infra.Data.csproj" />
     </ItemGroup>
 
 </Project>

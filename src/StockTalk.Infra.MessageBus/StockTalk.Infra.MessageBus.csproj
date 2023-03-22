@@ -4,7 +4,7 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>StockTalk.Infra.EventBus</RootNamespace>
+        <RootNamespace>StockTalk.Infra.MessageBus</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
